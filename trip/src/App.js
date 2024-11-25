@@ -9,6 +9,7 @@ const initialItems = [
 
 export default function App(){
   const [items, setItems] = useState([]);
+  const numItems = items.length;
 
   function handleAddItems(item){
     setItems((items) => [...items,item])
@@ -31,7 +32,7 @@ export default function App(){
       <Logo/>
       <Form onAddItems={handleAddItems}/>
       <ListaDeCoisas items={items} onDeleteItem={handleDeleteItem} onToggleItem={handleToggleItem}/>
-      <Estatistica/>
+      <Estatistica items={items}/>
     </div>
   )
 }
@@ -112,8 +113,19 @@ function Item({item, onDeleteItem, onToggleItem}){
   )
 }
 
-function Estatistica(){
+function Estatistica({items}){
+  if(!items.length) return (
+    <p className="stats"><em>Adicione algum item na sua lista!</em></p>
+  )
+
+  const numItems = items.length;
+  const numPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numPacked/numItems) * 100);
+
   return <footer className="stats">
-    <em>Você tem X itens na sua lista, adicione mais X (X%) 🧳</em>
+    <em>
+      {percentage === 100
+       ? "Você está pronto para viajar! 🎉" : `Você tem ${numItems} itens na sua lista, adicione mais ${numPacked} (${percentage}%)`}
+      </em>
   </footer>
 }

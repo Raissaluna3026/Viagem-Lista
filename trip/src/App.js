@@ -26,7 +26,9 @@ export default function App(){
   }
 
   function deleteItems(){
-    setItems([]);
+    const confirmed = window.confirm('Você tem certeza que deseja excluir?');
+    if(confirmed)
+      setItems([]);
 
   }
     

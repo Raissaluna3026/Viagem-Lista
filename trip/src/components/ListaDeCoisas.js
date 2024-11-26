@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import  Item from './App';
+import  Item from './Item';
 
 export default function ListaDeCoisas({ items, onDeleteItem, onToggleItem, onDeleteItems }) {
   const [sortBy, setSortBy] = useState('packed');
